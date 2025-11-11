@@ -1,0 +1,80 @@
+# Örnek Swagger/OpenAPI 3.0 Tanımı
+openapi: 3.0.0
+info:
+  title: ATM Para Çekme API
+  description: Basit bir banka kartı doğrulama, bakiye sorgulama ve para çekme servisi.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/atm/api
+    description: Yerel Geliştirme Sunucusu
+
+paths:
+  /account/verify:
+    post:
+      summary: Kart Doğrulama
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        '200':
+          description: Doğrulama başarılı.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        '401':
+          description: Kart veya PIN hatalı.
+
+  /account/balance:
+    get:
+      summary: Bakiye Sorgulama
+      parameters:
+        - in: query
+          name: cardNumber
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Bakiye bilgisi.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceResponse'
+        '404':
+          description: Kart bulunamadı.
+          
+  /account/withdraw:
+    post:
+      summary: Para Çekme
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WithdrawRequest'
+      responses:
+        '200':
+          description: İşlem başarılı, yeni bakiye bilgisi.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BalanceResponse'
+        '403':
+          description: Yetersiz bakiye.
+        '404':
+          description: Kart bulunamadı.
+
+components:
+  schemas:
+    AuthRequest:
+      type: object
+      properties:
+        cardNumber:
+          type: string
+          example: "1111222233334444"
+        pin:
+          type: string
+          example: "1234"
+    # ... Diğer model şemaları (AuthResponse, BalanceResponse, WithdrawRequest) buraya eklenmeli
