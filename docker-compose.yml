@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  atm-api:
+    build: .
+    container_name: atm-api
+    ports:
+      - "8080:8080"
+    restart: always
+
