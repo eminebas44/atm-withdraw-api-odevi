@@ -1,10 +1,23 @@
-version: "3.8"
-
 services:
-  atm-api:
-    build: .
-    container_name: atm-api
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: atm-backend
     ports:
-      - "8080:8080"
-    restart: always
+      - "7575:7575"
+    networks:
+      - atmnet
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: atm-frontend
+    ports:
+      - "8080:80"
+    networks:
+      - atmnet
+
+networks:
+  atmnet:

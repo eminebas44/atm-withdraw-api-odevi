@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATM Müşteri Paneli</title>
+    <link rel="stylesheet" href="styles.css"> </head>
+<body>
+    <div class="container">
+        <h1>ATM Paneli - Güvenli Erişim</h1>
+        
+        <div id="login-section" class="card">
+            <h2>Giriş Yap</h2>
+            <input type="text" id="username" placeholder="Kullanıcı Adı (user)" required>
+            <input type="password" id="password" placeholder="Şifre (pass)" required>
+            <button onclick="login()">Giriş</button>
+            <p id="message" class="error-message"></p>
+        </div>
+
+        <div id="protected-section" class="card" style="display:none;">
+            <h2>Hesap Bilgileri</h2>
+            <p>Sadece geçerli token ile erişilebilir.</p>
+            <button onclick="getBalance()">Bakiye Sorgula</button>
+            <p id="balance-info" class="result-message"></p>
+            <button onclick="logout()" class="logout-button">Çıkış Yap</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
