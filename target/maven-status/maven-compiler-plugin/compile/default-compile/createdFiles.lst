@@ -1,7 +1,0 @@
-com\example\atm\model\BalanceResponse.class
-com\example\atm\AtmWithdrawApiApplication.class
-com\example\atm\service\AtmService.class
-com\example\atm\controller\ATMController.class
-com\example\atm\model\AuthRequest.class
-com\example\atm\model\WithdrawRequest.class
-com\example\atm\model\AuthResponse.class
