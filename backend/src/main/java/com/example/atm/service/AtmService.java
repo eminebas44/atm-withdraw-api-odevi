@@ -2,61 +2,52 @@ package com.example.atm.service;
 
 import com.example.atm.model.AuthRequest;
 import com.example.atm.model.BalanceResponse;
-import com.example.atm.exception.NotFoundException; // 👈 Yeni eklenen import
+import com.example.atm.model.User;
+import com.example.atm.repository.UserRepository;
+import com.example.atm.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class AtmService {
 
+    private final UserRepository userRepository;
 
-    private final Map<String, String> userPins = new HashMap<>();
-    private final Map<String, Double> userBalances = new HashMap<>();
-
-    public AtmService() {
-      
-        userPins.put("1111222233334444", "1234");
-        userBalances.put("1111222233334444", 1500.50);
-        userPins.put("5555666677778888", "4321");
-        userBalances.put("5555666677778888", 500.00);
+    public AtmService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public boolean verify(AuthRequest req) {
-        String storedPin = userPins.get(req.getCardNumber());
-        return storedPin != null && storedPin.equals(req.getPin());
+        Optional<User> userOptional = userRepository.findByUsername(req.getCardNumber());
+        
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            return user.getPassword().equals(req.getPin());
+        }
+        return false;
     }
 
     public BalanceResponse getBalance(String cardNumber) {
-        Double balance = userBalances.get(cardNumber);
+        User user = userRepository.findByUsername(cardNumber)
+                .orElseThrow(() -> new NotFoundException("Kullanıcı bulunamadı: " + cardNumber));
         
-      
-        if (balance == null) {
-           
-            throw new NotFoundException("Kart numarası " + cardNumber + " ile ilişkili hesap bulunamadı.");
-        }
-        
-        return new BalanceResponse(cardNumber, balance, "Bakiye başarıyla sorgulandı.");
+        return new BalanceResponse(cardNumber, user.getBalance(), "Bakiye başarıyla sorgulandı.");
     }
 
-  
     public BalanceResponse withdraw(String cardNumber, double amount) {
-        Double currentBalance = userBalances.get(cardNumber);
-        
-        if (currentBalance == null) {
-            throw new NotFoundException("Kart numarası " + cardNumber + " ile ilişkili hesap bulunamadı.");
+
+        User user = userRepository.findByUsername(cardNumber)
+                .orElseThrow(() -> new NotFoundException("Kullanıcı bulunamadı: " + cardNumber));
+
+        if (user.getBalance() < amount) {
+            throw new IllegalArgumentException("Yetersiz bakiye. Mevcut bakiye: " + user.getBalance());
         }
 
-  
-        if (currentBalance < amount) {
-           
-            throw new IllegalArgumentException("Yetersiz bakiye. Mevcut bakiye: " + currentBalance);
-        }
-
-        // İşlem başarılı
-        double newBalance = currentBalance - amount;
-        userBalances.put(cardNumber, newBalance);
+        double newBalance = user.getBalance() - amount;
+        user.setBalance(newBalance);
+    
+        userRepository.save(user);
 
         return new BalanceResponse(cardNumber, newBalance, "Para çekme işlemi başarıyla gerçekleştirildi.");
     }

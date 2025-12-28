@@ -9,6 +9,9 @@ C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\model\Wit
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\model\AuthRequest.java
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\service\JwtService.java
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\exception\NotFoundException.java
+C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\config\DataInitializer.java
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\exception\GlobalExceptionHandler.java
+C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\repository\UserRepository.java
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\controller\ATMController.java
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\model\BalanceResponse.java
+C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\model\User.java

@@ -4,9 +4,13 @@ import com.example.atm.model.*;
 import com.example.atm.service.AtmService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+// SWAGGER İÇİN GEREKLİ OLAN IMPORT:
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
 @RequestMapping("/account")
+// BU ANNOTATION SWAGGER'A BURANIN KİLİTLİ OLDUĞUNU SÖYLER:
+@SecurityRequirement(name = "bearerAuth") 
 public class ATMController {
 
     private final AtmService atmService;
