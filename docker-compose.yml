@@ -39,7 +39,6 @@ services:
     depends_on:
       - db
     environment:
-      # Backend, Docker içinde 'db' servisine 5432 portundan ulaşır (Değişmez)
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/atm_db
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: password

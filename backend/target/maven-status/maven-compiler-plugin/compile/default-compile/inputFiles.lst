@@ -1,3 +1,4 @@
+C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\config\OpenApiConfig.java
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\config\SecurityConfig.java
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\error\ApiError.java
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\controller\AuthController.java
@@ -7,6 +8,7 @@ C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\config\Jw
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\AtmWithdrawApiApplication.java
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\model\WithdrawRequest.java
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\model\AuthRequest.java
+C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\model\DepositRequest.java
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\service\JwtService.java
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\exception\NotFoundException.java
 C:\Users\emine\atm-withdraw-api1\backend\src\main\java\com\example\atm\config\DataInitializer.java

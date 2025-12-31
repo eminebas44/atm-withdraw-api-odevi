@@ -4,13 +4,11 @@ import com.example.atm.model.*;
 import com.example.atm.service.AtmService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-// SWAGGER İÇİN GEREKLİ OLAN IMPORT:
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/account")
-// BU ANNOTATION SWAGGER'A BURANIN KİLİTLİ OLDUĞUNU SÖYLER:
-@SecurityRequirement(name = "bearerAuth") 
 public class ATMController {
 
     private final AtmService atmService;
@@ -24,9 +22,7 @@ public class ATMController {
         if (cardNumber == null || cardNumber.isEmpty()) {
             throw new IllegalArgumentException("Kart numarası gereklidir.");
         }
-
-        BalanceResponse response = atmService.getBalance(cardNumber);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(atmService.getBalance(cardNumber));
     }
 
     @PostMapping("/withdraw")
@@ -34,8 +30,14 @@ public class ATMController {
         if (req.getCardNumber() == null || req.getAmount() <= 0) {
             throw new IllegalArgumentException("Geçersiz kart numarası veya miktar.");
         }
+        return ResponseEntity.ok(atmService.withdraw(req.getCardNumber(), req.getAmount()));
+    }
 
-        BalanceResponse response = atmService.withdraw(req.getCardNumber(), req.getAmount());
-        return ResponseEntity.ok(response);
+    @PostMapping("/deposit")
+    public ResponseEntity<BalanceResponse> deposit(@RequestBody DepositRequest req) {
+        if (req.getCardNumber() == null || req.getBanknotes() == null || req.getBanknotes().isEmpty()) {
+            throw new IllegalArgumentException("Geçersiz kart numarası veya banknot bilgisi.");
+        }
+        return ResponseEntity.ok(atmService.deposit(req.getCardNumber(), req.getBanknotes()));
     }
 }
