@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  atm-db:
+    image: postgres:15
+    container_name: atm-db
+    environment:
+      POSTGRES_DB: atm_db
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - atm_db_data:/var/lib/postgresql/data
+
+  atm-backend:
+    build: ./backend
+    container_name: atm-backend
+    depends_on:
+      - atm-db
+    ports:
+      - "7575:7575"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://atm-db:5432/atm_db
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+  atm-finance-service:
+    build: ./weather_mcp_service
+    container_name: atm-finance-service
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=app.py
+
+volumes:
+  atm_db_data:

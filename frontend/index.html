@@ -4,28 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ATM Müşteri Paneli</title>
-    <link rel="stylesheet" href="styles.css"> </head>
+    <link rel="stylesheet" href="styles.css">
+</head>
 <body>
     <div class="container">
         <h1>ATM Paneli - Güvenli Erişim</h1>
         
         <div id="login-section" class="card">
             <h2>Giriş Yap</h2>
-            <input type="text" id="username" placeholder="Kullanıcı Adı (user)" required>
-            <input type="password" id="password" placeholder="Şifre (pass)" required>
+            <input type="text" id="username" placeholder="Kart Numarası" required>
+            <input type="password" id="password" placeholder="Şifre" required>
             <button onclick="login()">Giriş</button>
             <p id="message" class="error-message"></p>
         </div>
 
-        <div id="protected-section" class="card" style="display:none;">
-            <h2>Hesap Bilgileri</h2>
-            <p>Sadece geçerli token ile erişilebilir.</p>
-            <button onclick="getBalance()">Bakiye Sorgula</button>
-            <p id="balance-info" class="result-message"></p>
-            <button onclick="logout()" class="logout-button">Çıkış Yap</button>
+        <div id="protected-section" style="display:none;">
+            <div class="card">
+                <h2>Hesap Bilgileri</h2>
+                <p id="card-display"></p>
+                <p id="balance-info" class="result-message"></p>
+                <button onclick="getBalance()">Bakiye Yenile</button>
+            </div>
+
+            <div class="card mt-4">
+                <h2>Para Çek</h2>
+                <input type="number" id="withdraw-amount" placeholder="Tutar (5 ve katları)" min="5" step="5">
+                <button onclick="withdrawMoney()" style="background-color: #e67e22;">Para Çek</button>
+                <p id="withdraw-message"></p>
+            </div>
+
+            <div class="card mt-4">
+                <h2>Para Yatır</h2>
+                <div class="deposit-grid">
+                    <div><label>200 TL:</label> <input type="number" id="dep-200" value="0" min="0"></div>
+                    <div><label>100 TL:</label> <input type="number" id="dep-100" value="0" min="0"></div>
+                    <div><label>50 TL:</label> <input type="number" id="dep-50" value="0" min="0"></div>
+                    <div><label>20 TL:</label> <input type="number" id="dep-20" value="0" min="0"></div>
+                    <div><label>10 TL:</label> <input type="number" id="dep-10" value="0" min="0"></div>
+                    <div><label>5 TL:</label> <input type="number" id="dep-5" value="0" min="0"></div>
+                </div>
+                <button onclick="depositMoney()" style="background-color: #27ae60; margin-top: 10px;">Para Yatır</button>
+                <p id="deposit-message"></p>
+            </div>
+
+            <button onclick="logout()" class="logout-button" style="margin-top: 20px;">Çıkış Yap</button>
         </div>
     </div>
-
     <script src="app.js"></script>
 </body>
 </html>

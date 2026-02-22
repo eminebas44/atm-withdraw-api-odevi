@@ -1,9 +1,13 @@
+com\example\atm\config\DataInitializer.class
 com\example\atm\config\SecurityConfig.class
 com\example\atm\AtmWithdrawApiApplication.class
 com\example\atm\service\AtmService.class
 com\example\atm\config\JwtAuthenticationFilter.class
 com\example\atm\controller\ATMController.class
+com\example\atm\model\DepositRequest.class
 com\example\atm\model\WithdrawRequest.class
+com\example\atm\config\OpenApiConfig.class
+com\example\atm\model\User.class
 com\example\atm\error\ApiError.class
 com\example\atm\service\JwtService.class
 com\example\atm\exception\NotFoundException.class
@@ -12,3 +16,4 @@ com\example\atm\controller\AuthController.class
 com\example\atm\model\AuthRequest.class
 com\example\atm\exception\GlobalExceptionHandler.class
 com\example\atm\model\AuthResponse.class
+com\example\atm\repository\UserRepository.class

@@ -27,8 +27,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        // ÖNEMLİ DÜZELTME: Frontend bağlantı hatasını çözmek için tüm kaynaklara (*) izin veriyoruz.
-        // setAllowedOrigins yerine setAllowedOriginPatterns kullanıyoruz.
+      
         configuration.setAllowedOriginPatterns(Arrays.asList("*")); 
 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
@@ -49,16 +48,14 @@ public class SecurityConfig {
             .formLogin(login -> login.disable())
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
-                    "/auth/**",           // Login ve Register endpointleri herkese açık
-                    "/swagger-ui/**",     // Swagger arayüzü
+                    "/auth/**",           
+                    "/swagger-ui/**",     
                     "/swagger-ui.html",
                     "/v3/api-docs/**"
                 ).permitAll()
-                .anyRequest().authenticated() // Diğer tüm istekler Token (JWT) gerektirir
+                .anyRequest().authenticated() 
             )
-            // Session tutmuyoruz, her istek stateless (Token mantığı)
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            // Filtremizi doğru sınıf (Filter) ile ekliyoruz
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
             .build();
     }
